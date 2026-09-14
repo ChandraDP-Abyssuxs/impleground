@@ -1,0 +1,134 @@
+@import 'tailwindcss';
+
+/* Tailwind v4 uses prefers-color-scheme for `dark:` by default. We toggle
+   dark mode manually (with persistence), so re-target the variant at a
+   `.dark` class on <html> instead. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* These are re-assigned under html.light below, so every utility that
+     reads them (bg-canvas, text-ink, border-border, ...) repaints for the
+     current theme automatically — no dark:/light: variants required on
+     individual elements. */
+  --color-canvas: #0b0e14;
+  --color-panel: #131722;
+  --color-panel-raised: #1b2130;
+  --color-border: #262c3d;
+  --color-ink: #eceef3;
+  --color-ink-muted: #8890a6;
+
+  /* Brand accents — identical in both themes */
+  --color-accent: #7c6fea;
+  --color-accent-strong: #6552e0;
+  --color-signal: #ffb454;
+  --color-signal-ink: #4a3200;
+  --color-success: #4ade80;
+  --color-danger: #fb7185;
+
+  --shadow-panel: 0 1px 0 0 rgb(0 0 0 / 0.4);
+}
+
+html {
+  color-scheme: dark;
+}
+html.light {
+  color-scheme: light;
+  --color-canvas: #f6f7fa;
+  --color-panel: #ffffff;
+  --color-panel-raised: #eef0f6;
+  --color-border: #e2e5ed;
+  --color-ink: #14161f;
+  --color-ink-muted: #6b7280;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+html.light body {
+  background-color: var(--color-canvas-light);
+  color: var(--color-ink-light);
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+/* Slim, developer-friendly scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 999px;
+}
+
+/* Alpha-transparency checkerboard — the canvas "stage" backdrop, so
+   transparent PNG output (cutouts, dithered alpha) is always legible. */
+.checker-bg {
+  background-image:
+    linear-gradient(45deg, var(--color-border) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--color-border) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--color-border) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--color-border) 75%);
+  background-size: 22px 22px;
+  background-position:
+    0 0,
+    0 11px,
+    11px -11px,
+    -11px 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Range slider — styled to match the app rather than the OS default */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-border);
+  outline: none;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--color-signal);
+  border: 2px solid var(--color-canvas);
+  cursor: pointer;
+  transition: transform 120ms ease;
+}
+input[type='range']::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+input[type='range']::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--color-signal);
+  border: 2px solid var(--color-canvas);
+  cursor: pointer;
+}
