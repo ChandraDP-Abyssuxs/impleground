@@ -41,13 +41,16 @@ export function Dropzone({ onFile, compact, className }: DropzoneProps) {
     return (
       <label
         htmlFor={inputId}
+        title="Replace image"
         className={cn(
-          'inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-border bg-panel-raised px-3 py-2 text-xs font-medium text-ink-muted hover:text-ink hover:border-accent/60 transition-colors',
+          'inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-border bg-panel-raised px-2.5 py-2 text-xs font-medium text-ink-muted hover:text-ink hover:border-accent/60 transition-colors sm:px-3',
           className,
         )}
       >
         <UploadCloud size={14} />
-        Replace image
+        {/* Icon-only on phones — the label comes back once there's room. */}
+        <span className="hidden sm:inline">Replace image</span>
+        <span className="sr-only sm:hidden">Replace image</span>
         <input
           id={inputId}
           ref={inputRef}
@@ -70,7 +73,7 @@ export function Dropzone({ onFile, compact, className }: DropzoneProps) {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       className={cn(
-        'flex h-full min-h-[280px] w-full flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed p-8 text-center transition-colors duration-150',
+        'flex h-full min-h-[200px] w-full flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed p-6 text-center transition-colors duration-150 sm:min-h-[280px] sm:p-8',
         isDragging ? 'border-accent bg-accent/5' : 'border-border hover:border-accent/50',
         className,
       )}

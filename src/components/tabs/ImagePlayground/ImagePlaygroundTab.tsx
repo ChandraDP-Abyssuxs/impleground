@@ -241,7 +241,7 @@ export function ImagePlaygroundTab() {
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
         >
-          <canvas ref={displayCanvasRef} className="block max-h-[65vh] max-w-full rounded-lg shadow-xl" />
+          <canvas ref={displayCanvasRef} className="block max-h-[42vh] max-w-full rounded-lg shadow-xl sm:max-h-[65vh]" />
           {isCropping && (
             <div className="absolute inset-0 cursor-crosshair rounded-lg bg-black/15">
               {dragRect && dragRect.width > 0 && dims.width > 0 && (

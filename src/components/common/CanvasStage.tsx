@@ -25,7 +25,12 @@ export function CanvasStage({
 }: CanvasStageProps) {
   if (!hasImage) {
     return (
-      <div className={cn('checker-bg flex h-full min-h-[420px] items-center justify-center rounded-xl p-4', className)}>
+      <div
+        className={cn(
+          'checker-bg flex h-full min-h-[240px] items-center justify-center rounded-xl p-4 sm:min-h-[420px]',
+          className,
+        )}
+      >
         <div className="w-full max-w-sm rounded-xl bg-panel/95 p-1 backdrop-blur-sm">
           <Dropzone onFile={onFile} />
         </div>
@@ -36,7 +41,7 @@ export function CanvasStage({
   return (
     <div
       className={cn(
-        'checker-bg relative flex h-full min-h-[420px] items-center justify-center overflow-auto rounded-xl p-4',
+        'checker-bg relative flex h-full min-h-[240px] items-center justify-center overflow-auto rounded-xl p-4 sm:min-h-[420px]',
         className,
       )}
     >

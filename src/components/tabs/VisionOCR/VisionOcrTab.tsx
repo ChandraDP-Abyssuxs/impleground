@@ -160,7 +160,7 @@ export function VisionOcrTab() {
         progressPercent={state.progress}
         progressLabel={state.stage ?? 'Processing'}
       >
-        <canvas ref={canvasRef} className="block max-h-[65vh] max-w-full rounded-lg shadow-xl" />
+        <canvas ref={canvasRef} className="block max-h-[42vh] max-w-full rounded-lg shadow-xl sm:max-h-[65vh]" />
       </CanvasStage>
     </PanelLayout>
   )

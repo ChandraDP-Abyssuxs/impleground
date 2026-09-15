@@ -131,7 +131,7 @@ export function RetroStudioTab() {
       <CanvasStage hasImage={!!sourceImage} onFile={loadFile}>
         <canvas
           ref={canvasRef}
-          className="block max-h-[65vh] max-w-full rounded-lg shadow-xl [image-rendering:pixelated]"
+          className="block max-h-[42vh] max-w-full rounded-lg shadow-xl [image-rendering:pixelated] sm:max-h-[65vh]"
         />
       </CanvasStage>
     </PanelLayout>

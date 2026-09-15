@@ -10,6 +10,12 @@
   --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
 
+  /* A defensive floor below any mainstream phone's full-screen width —
+     mainstream phones (360px+) keep full top-bar labels; this only
+     kicks in for split-screen/multi-window viewports or unusually old
+     hardware, where the top bar would otherwise overflow. */
+  --breakpoint-xs: 22.5rem;
+
   /* These are re-assigned under html.light below, so every utility that
      reads them (bg-canvas, text-ink, border-border, ...) repaints for the
      current theme automatically — no dark:/light: variants required on
@@ -46,15 +52,14 @@ html.light {
 }
 
 body {
+  /* --color-canvas / --color-ink are reassigned under html.light above,
+     so this repaints correctly for both themes without needing a
+     separate light-mode override here. */
   font-family: var(--font-sans);
   background-color: var(--color-canvas);
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   overscroll-behavior: none;
-}
-html.light body {
-  background-color: var(--color-canvas-light);
-  color: var(--color-ink-light);
 }
 
 ::selection {
@@ -101,32 +106,38 @@ html.light body {
   }
 }
 
-/* Range slider — styled to match the app rather than the OS default */
+/* Range slider — styled to match the app rather than the OS default.
+   The visible track stays a thin 4px line (background-clip keeps the
+   fill inside the content box); the padding around it pads out the
+   actual hit-testable box so it's easier to grab with a finger. */
 input[type='range'] {
   -webkit-appearance: none;
   appearance: none;
   height: 4px;
+  padding-block: 10px;
   border-radius: 999px;
   background: var(--color-border);
+  background-clip: content-box;
   outline: none;
 }
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   border-radius: 999px;
   background: var(--color-signal);
   border: 2px solid var(--color-canvas);
   cursor: pointer;
   transition: transform 120ms ease;
+  margin-top: -1px;
 }
 input[type='range']::-webkit-slider-thumb:hover {
   transform: scale(1.15);
 }
 input[type='range']::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   border-radius: 999px;
   background: var(--color-signal);
   border: 2px solid var(--color-canvas);

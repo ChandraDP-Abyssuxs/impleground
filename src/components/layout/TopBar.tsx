@@ -21,26 +21,26 @@ export function TopBar() {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <header className="flex h-14 shrink-0 items-center gap-3 border-b border-border bg-panel px-4">
-      <div className="flex items-center gap-2">
+    <header className="flex h-14 shrink-0 items-center gap-2 border-b border-border bg-panel px-3 sm:gap-3 sm:px-4">
+      <div className="flex min-w-0 items-center gap-2">
         <BrandMark />
         <span className="font-display text-[15px] font-semibold tracking-tight text-ink">ImPleGround</span>
       </div>
 
-      <div className="ml-auto flex items-center gap-2">
+      <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
         {sourceImage && (
           <span className="hidden font-mono text-[11px] text-ink-muted md:inline">
             {sourceImage.width}×{sourceImage.height}
           </span>
         )}
-        {sourceImage && <Dropzone compact onFile={loadFile} className="hidden sm:inline-flex" />}
+        {sourceImage && <Dropzone compact onFile={loadFile} />}
 
         <button
           type="button"
           onClick={toggleTheme}
           aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
           title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-          className="flex size-8 items-center justify-center rounded-lg text-ink-muted hover:bg-panel-raised hover:text-ink transition-colors"
+          className="flex size-8 shrink-0 items-center justify-center rounded-lg text-ink-muted hover:bg-panel-raised hover:text-ink transition-colors"
         >
           {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
         </button>
@@ -51,8 +51,9 @@ export function TopBar() {
           icon={<Download size={14} />}
           disabled={!sourceImage}
           onClick={() => void exportActiveTab()}
+          aria-label="Export PNG"
         >
-          Export PNG
+          <span className="hidden xs:inline">Export PNG</span>
         </Button>
       </div>
     </header>
